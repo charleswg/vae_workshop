@@ -12,14 +12,14 @@ Code to replicate results from the VAE workshop held by Dmytro Bielievtsv and Gr
 Prepare a set of audio files in some folder (say, `audio/`) and split it into two subfolders `audio/train` and `audio/test`. The files can be in either `.wav` or `.ogg` format. Extract features as using `extract_features.py`:
 ```bash
 $ cd vae_workshop
-$ python extract_features.py ../audio/ ../audio_feat/
+$ python extract_features.py ./audio/ ./audio_feat/
 ```
 The command above will extract both compressed mel and full linear log-magnitude spectrograms and store them as `.npz` files in `audio_feat/`. See `python extract_features.py -h` for more details.
 
 ## 2) Train the VAE
 Run the VAE training script:
 ```bash
-$ python train_beta_vae.py checkpoints/vae/ ../audio_feat/train/ ../audio_feat/test/
+$ python train_beta_vae.py checkpoints/vae/ ./audio_feat/train/ ./audio_feat/test/
 ```
 On a 1080Ti it takes about 1.5 hours to train the network for 300k iterations. While it is training, it is interesting to take a look at the learning dynamics using tensorboard:
 ```bash
@@ -31,7 +31,7 @@ Mel-spectrogram is usually about 100 frames per second at 80 dimensions per fram
 
 Run the training script:
 ```bash
-$ python train_inverter.py checkpoints/inverter/ ../audio_feat/train/ ../audio_feat/test/
+$ python train_inverter.py checkpoints/inverter/ ./audio_feat/train/ ./audio_feat/test/
 ```
 
 With a 2-hour single speaker dataset, it takes about 40k iterations to reach reasonable quality. This model is much larger, so it can take several hours to train.
